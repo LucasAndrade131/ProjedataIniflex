@@ -40,4 +40,16 @@ public class FuncionarioService {
         lista.removeIf(f -> f.getNome().equalsIgnoreCase("João"));
     }
 
+    public void aumentarSalario(List<Funcionario> lista) {
+
+        BigDecimal percentual = new BigDecimal("0.10");
+
+        for (Funcionario f : lista) {
+            BigDecimal aumento = f.getSalario().multiply(percentual);
+            BigDecimal novoSalario = f.getSalario().add(aumento);
+
+            f.setSalario(novoSalario);
+        }
+    }
+
 }

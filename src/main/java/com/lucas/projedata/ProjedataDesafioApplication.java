@@ -25,6 +25,7 @@ public class ProjedataDesafioApplication implements CommandLineRunner {
 
 		List<Funcionario> funcionarios = service.criarFuncionarios();
 		service.removerJoao(funcionarios);
+		service.aumentarSalario(funcionarios);
 		imprimirFuncionarios(funcionarios);
 	}
 
