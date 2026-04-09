@@ -43,6 +43,10 @@ public class ProjedataDesafioApplication implements CommandLineRunner {
 		System.out.println("\nFuncionário mais velho:");
 		System.out.println("Nome: " + maisVelho.getNome());
 		System.out.println("Idade: " + idade);
+
+		System.out.println("\nFuncionários em ordem alfabética:");
+		List<Funcionario> ordenados = service.ordenarPorNome(funcionarios);
+		imprimirFuncionarios(ordenados);
 	}
 
 	private static void imprimirFuncionarios(List<Funcionario> funcionarios) {

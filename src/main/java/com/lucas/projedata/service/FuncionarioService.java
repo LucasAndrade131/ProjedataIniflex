@@ -88,4 +88,10 @@ public class FuncionarioService {
         return Period.between(f.getDataNascimento(), LocalDate.now()).getYears();
     }
 
+    public List<Funcionario> ordenarPorNome(List<Funcionario> lista) {
+        return lista.stream()
+                .sorted(Comparator.comparing(Funcionario::getNome))
+                .toList();
+    }
+
 }
