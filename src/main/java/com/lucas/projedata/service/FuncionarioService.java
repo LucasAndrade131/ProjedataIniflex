@@ -3,6 +3,7 @@ package com.lucas.projedata.service;
 import com.lucas.projedata.model.Funcionario;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.*;
@@ -105,5 +106,17 @@ public class FuncionarioService {
         return total;
     }
 
+    public Map<String, BigDecimal> calcularSalariosMinimos(List<Funcionario> lista) {
 
+        BigDecimal salarioMinimo = new BigDecimal("1212.00");
+        Map<String, BigDecimal> resultado = new LinkedHashMap<>();
+
+        for (Funcionario f : lista) {
+            BigDecimal quantidade = f.getSalario()
+                    .divide(salarioMinimo, 2, RoundingMode.HALF_UP);
+            resultado.put(f.getNome(), quantidade);
+        }
+
+        return resultado;
+    }
 }

@@ -52,6 +52,12 @@ public class ProjedataDesafioApplication implements CommandLineRunner {
 		BigDecimal totalSalarios = service.calcularTotalSalarios(funcionarios);
 		System.out.println("\nTotal dos salários:");
 		System.out.println("R$ " + getDecimalFormat().format(totalSalarios));
+
+		System.out.println("\nSalários mínimos por funcionário:");
+		Map<String, BigDecimal> salariosMinimos = service.calcularSalariosMinimos(funcionarios);
+		for (Map.Entry<String, BigDecimal> entry : salariosMinimos.entrySet()) {
+			System.out.println(entry.getKey() + " ganha " + entry.getValue() + " salários mínimos");
+		}
 	}
 
 	private static void imprimirFuncionarios(List<Funcionario> funcionarios) {
