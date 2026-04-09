@@ -61,4 +61,13 @@ public class FuncionarioService {
         return agrupados;
     }
 
+    public List<Funcionario> filtrarAniversariantes(List<Funcionario> lista) {
+        return lista.stream()
+                .filter(f -> {
+                    int mes = f.getDataNascimento().getMonthValue();
+                    return mes == 10 || mes == 12;
+                })
+                .toList();
+    }
+
 }

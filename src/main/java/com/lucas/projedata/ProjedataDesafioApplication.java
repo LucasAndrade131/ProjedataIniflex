@@ -33,6 +33,10 @@ public class ProjedataDesafioApplication implements CommandLineRunner {
 		System.out.println("Funcionários agrupados por função:");
 		Map<String, List<Funcionario>> agrupados = FuncionarioService.agruparPorFuncao(funcionarios);
 		imprimirAgrupados(agrupados);
+
+		System.out.println("\nFuncionários aniversariantes (Outubro e Dezembro):");
+		List<Funcionario> aniversariantes = service.filtrarAniversariantes(funcionarios);
+		imprimirFuncionarios(aniversariantes);
 	}
 
 	private static void imprimirFuncionarios(List<Funcionario> funcionarios) {
