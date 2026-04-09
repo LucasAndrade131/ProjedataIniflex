@@ -36,4 +36,8 @@ public class FuncionarioService {
         return funcionarios;
     }
 
+    public void removerJoao(List<Funcionario> lista) {
+        lista.removeIf(f -> f.getNome().equalsIgnoreCase("João"));
+    }
+
 }
