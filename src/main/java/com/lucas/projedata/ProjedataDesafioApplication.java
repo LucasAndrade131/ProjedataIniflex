@@ -10,6 +10,7 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Map;
 
 @SpringBootApplication
 public class ProjedataDesafioApplication implements CommandLineRunner {
@@ -27,6 +28,11 @@ public class ProjedataDesafioApplication implements CommandLineRunner {
 		service.removerJoao(funcionarios);
 		service.aumentarSalario(funcionarios);
 		imprimirFuncionarios(funcionarios);
+
+		System.out.println("\n============================================================");
+		System.out.println("Funcionários agrupados por função:");
+		Map<String, List<Funcionario>> agrupados = FuncionarioService.agruparPorFuncao(funcionarios);
+		imprimirAgrupados(agrupados);
 	}
 
 	private static void imprimirFuncionarios(List<Funcionario> funcionarios) {
@@ -51,6 +57,31 @@ public class ProjedataDesafioApplication implements CommandLineRunner {
 					"R$ " + df.format(f.getSalario()),
 					f.getFuncao()
 			);
+		}
+	}
+
+	private static void imprimirAgrupados(Map<String, List<Funcionario>> agrupados) {
+
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+		DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+		symbols.setDecimalSeparator(',');
+		symbols.setGroupingSeparator('.');
+
+		DecimalFormat df = new DecimalFormat("#,##0.00", symbols);
+
+		for (Map.Entry<String, List<Funcionario>> entry : agrupados.entrySet()) {
+
+			System.out.println("\nFunção: " + entry.getKey());
+			System.out.println("----------------------------------------");
+
+			for (Funcionario f : entry.getValue()) {
+				System.out.printf("%-15s %-12s %-15s%n",
+						f.getNome(),
+						f.getDataNascimento().format(formatter),
+						"R$ " + df.format(f.getSalario())
+				);
+			}
 		}
 	}
 
