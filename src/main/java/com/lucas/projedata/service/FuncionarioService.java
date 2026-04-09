@@ -5,7 +5,9 @@ import com.lucas.projedata.model.Funcionario;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class FuncionarioService {
 
@@ -50,6 +52,16 @@ public class FuncionarioService {
 
             f.setSalario(novoSalario);
         }
+    }
+
+    public static Map<String, List<Funcionario>> agruparPorFuncao(List<Funcionario> lista) {
+        Map<String, List<Funcionario>> agrupados = new HashMap<>();
+
+        for (Funcionario f : lista) {
+            agrupados.computeIfAbsent(f.getFuncao(), k -> new ArrayList<>()).add(f);
+        }
+
+        return agrupados;
     }
 
 }
