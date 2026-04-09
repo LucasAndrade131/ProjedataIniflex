@@ -94,4 +94,16 @@ public class FuncionarioService {
                 .toList();
     }
 
+    public BigDecimal calcularTotalSalarios(List<Funcionario> lista) {
+
+        BigDecimal total = BigDecimal.ZERO;
+
+        for (Funcionario f : lista) {
+            total = total.add(f.getSalario());
+        }
+
+        return total;
+    }
+
+
 }

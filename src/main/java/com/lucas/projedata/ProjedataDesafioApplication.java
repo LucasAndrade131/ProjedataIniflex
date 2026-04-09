@@ -6,6 +6,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.time.format.DateTimeFormatter;
@@ -47,17 +48,15 @@ public class ProjedataDesafioApplication implements CommandLineRunner {
 		System.out.println("\nFuncionários em ordem alfabética:");
 		List<Funcionario> ordenados = service.ordenarPorNome(funcionarios);
 		imprimirFuncionarios(ordenados);
+
+		BigDecimal totalSalarios = service.calcularTotalSalarios(funcionarios);
+		System.out.println("\nTotal dos salários:");
+		System.out.println("R$ " + getDecimalFormat().format(totalSalarios));
 	}
 
 	private static void imprimirFuncionarios(List<Funcionario> funcionarios) {
 
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
-		DecimalFormatSymbols symbols = new DecimalFormatSymbols();
-		symbols.setDecimalSeparator(',');
-		symbols.setGroupingSeparator('.');
-
-		DecimalFormat df = new DecimalFormat("#,##0.00", symbols);
 
 		System.out.printf("%-15s %-12s %-15s %-15s%n",
 				"Nome", "Nascimento", "Salário", "Função");
@@ -68,7 +67,7 @@ public class ProjedataDesafioApplication implements CommandLineRunner {
 			System.out.printf("%-15s %-12s %-15s %-15s%n",
 					f.getNome(),
 					f.getDataNascimento().format(formatter),
-					"R$ " + df.format(f.getSalario()),
+					"R$ " + getDecimalFormat().format(f.getSalario()),
 					f.getFuncao()
 			);
 		}
@@ -97,6 +96,13 @@ public class ProjedataDesafioApplication implements CommandLineRunner {
 				);
 			}
 		}
+	}
+
+	private static DecimalFormat getDecimalFormat() {
+		DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+		symbols.setDecimalSeparator(',');
+		symbols.setGroupingSeparator('.');
+		return new DecimalFormat("#,##0.00", symbols);
 	}
 
 }
