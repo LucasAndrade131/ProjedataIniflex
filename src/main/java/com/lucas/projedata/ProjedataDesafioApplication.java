@@ -1,13 +1,56 @@
 package com.lucas.projedata;
 
+import com.lucas.projedata.model.Funcionario;
+import com.lucas.projedata.service.FuncionarioService;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+
 @SpringBootApplication
-public class ProjedataDesafioApplication {
+public class ProjedataDesafioApplication implements CommandLineRunner {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ProjedataDesafioApplication.class, args);
+	}
+
+	@Override
+	public void run(String... args) {
+
+		FuncionarioService service = new FuncionarioService();
+
+		List<Funcionario> funcionarios = service.criarFuncionarios();
+		service.removerJoao(funcionarios);
+		imprimirFuncionarios(funcionarios);
+	}
+
+	private static void imprimirFuncionarios(List<Funcionario> funcionarios) {
+
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+		DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+		symbols.setDecimalSeparator(',');
+		symbols.setGroupingSeparator('.');
+
+		DecimalFormat df = new DecimalFormat("#,##0.00", symbols);
+
+		System.out.printf("%-15s %-12s %-15s %-15s%n",
+				"Nome", "Nascimento", "Salário", "Função");
+
+		System.out.println("------------------------------------------------------------");
+
+		for (Funcionario f : funcionarios) {
+			System.out.printf("%-15s %-12s %-15s %-15s%n",
+					f.getNome(),
+					f.getDataNascimento().format(formatter),
+					"R$ " + df.format(f.getSalario()),
+					f.getFuncao()
+			);
+		}
 	}
 
 }
