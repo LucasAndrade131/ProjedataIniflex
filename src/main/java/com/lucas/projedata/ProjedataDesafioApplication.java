@@ -37,6 +37,12 @@ public class ProjedataDesafioApplication implements CommandLineRunner {
 		System.out.println("\nFuncionários aniversariantes (Outubro e Dezembro):");
 		List<Funcionario> aniversariantes = service.filtrarAniversariantes(funcionarios);
 		imprimirFuncionarios(aniversariantes);
+
+		Funcionario maisVelho = service.encontrarMaisVelho(funcionarios);
+		int idade = service.calcularIdade(maisVelho);
+		System.out.println("\nFuncionário mais velho:");
+		System.out.println("Nome: " + maisVelho.getNome());
+		System.out.println("Idade: " + idade);
 	}
 
 	private static void imprimirFuncionarios(List<Funcionario> funcionarios) {

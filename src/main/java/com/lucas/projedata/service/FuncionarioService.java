@@ -4,6 +4,7 @@ import com.lucas.projedata.model.Funcionario;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.*;
 
 public class FuncionarioService {
@@ -68,6 +69,23 @@ public class FuncionarioService {
                     return mes == 10 || mes == 12;
                 })
                 .toList();
+    }
+
+    public Funcionario encontrarMaisVelho(List<Funcionario> lista) {
+
+        Funcionario maisVelho = lista.get(0);
+
+        for (Funcionario f : lista) {
+            if(f.getDataNascimento().isBefore(maisVelho.getDataNascimento())) {
+                maisVelho = f;
+            }
+        }
+
+        return maisVelho;
+    }
+
+    public int calcularIdade(Funcionario f) {
+        return Period.between(f.getDataNascimento(), LocalDate.now()).getYears();
     }
 
 }
