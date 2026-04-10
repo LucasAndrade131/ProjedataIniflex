@@ -28,32 +28,33 @@ public class ProjedataDesafioApplication implements CommandLineRunner {
 		List<Funcionario> funcionarios = service.criarFuncionarios();
 		service.removerJoao(funcionarios);
 		service.aumentarSalario(funcionarios);
+
+		imprimirSecao("Lista de funcionários:");
 		imprimirFuncionarios(funcionarios);
 
-		System.out.println("\n============================================================");
-		System.out.println("Funcionários agrupados por função:");
+		imprimirSecao("Funcionários agrupados por função:");
 		Map<String, List<Funcionario>> agrupados = FuncionarioService.agruparPorFuncao(funcionarios);
 		imprimirAgrupados(agrupados);
 
-		System.out.println("\nFuncionários aniversariantes (Outubro e Dezembro):");
+		imprimirSecao("Funcionários aniversariantes (Outubro e Dezembro):");
 		List<Funcionario> aniversariantes = service.filtrarAniversariantes(funcionarios);
 		imprimirFuncionarios(aniversariantes);
 
+		imprimirSecao("Funcionário mais velho:");
 		Funcionario maisVelho = service.encontrarMaisVelho(funcionarios);
 		int idade = service.calcularIdade(maisVelho);
-		System.out.println("\nFuncionário mais velho:");
 		System.out.println("Nome: " + maisVelho.getNome());
 		System.out.println("Idade: " + idade);
 
-		System.out.println("\nFuncionários em ordem alfabética:");
+		imprimirSecao("Funcionários em ordem alfabética:");
 		List<Funcionario> ordenados = service.ordenarPorNome(funcionarios);
 		imprimirFuncionarios(ordenados);
 
+		imprimirSecao("Total dos salários:");
 		BigDecimal totalSalarios = service.calcularTotalSalarios(funcionarios);
-		System.out.println("\nTotal dos salários:");
 		System.out.println("R$ " + getDecimalFormat().format(totalSalarios));
 
-		System.out.println("\nSalários mínimos por funcionário:");
+		imprimirSecao("Salários mínimos por funcionário:");
 		Map<String, BigDecimal> salariosMinimos = service.calcularSalariosMinimos(funcionarios);
 		for (Map.Entry<String, BigDecimal> entry : salariosMinimos.entrySet()) {
 			System.out.println(entry.getKey() + " ganha " + entry.getValue() + " salários mínimos");
@@ -111,4 +112,8 @@ public class ProjedataDesafioApplication implements CommandLineRunner {
 		return new DecimalFormat("#,##0.00", symbols);
 	}
 
+	private static void imprimirSecao(String titulo) {
+		System.out.println("\n============================================================");
+		System.out.println(titulo);
+	}
 }
