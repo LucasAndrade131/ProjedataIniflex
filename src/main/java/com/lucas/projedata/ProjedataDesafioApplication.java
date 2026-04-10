@@ -42,7 +42,7 @@ public class ProjedataDesafioApplication implements CommandLineRunner {
 
 		imprimirSecao("Funcionário mais velho:");
 		Funcionario maisVelho = service.encontrarMaisVelho(funcionarios);
-		int idade = service.calcularIdade(maisVelho);
+		int idade = maisVelho.calcularIdade();
 		System.out.println("Nome: " + maisVelho.getNome());
 		System.out.println("Idade: " + idade);
 

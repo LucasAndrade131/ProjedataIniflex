@@ -85,10 +85,6 @@ public class FuncionarioService {
         return maisVelho;
     }
 
-    public int calcularIdade(Funcionario f) {
-        return Period.between(f.getDataNascimento(), LocalDate.now()).getYears();
-    }
-
     public List<Funcionario> ordenarPorNome(List<Funcionario> lista) {
         return lista.stream()
                 .sorted(Comparator.comparing(Funcionario::getNome))

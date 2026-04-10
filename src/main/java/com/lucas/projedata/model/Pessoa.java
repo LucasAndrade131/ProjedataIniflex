@@ -1,6 +1,7 @@
 package com.lucas.projedata.model;
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.Objects;
 
 public class Pessoa {
@@ -19,6 +20,10 @@ public class Pessoa {
 
     public LocalDate getDataNascimento() {
         return dataNascimento;
+    }
+
+    public int calcularIdade() {
+        return Period.between(this.dataNascimento, LocalDate.now()).getYears();
     }
 
     @Override
